@@ -5,18 +5,39 @@
     <e p="C:\Users\kwolek\.Rider2019.3\system\resharper-host\local\Transient\ReSharperHost\v193\SolutionCaches\_EconomyEngine.-429325060.00" t="ExcludeRecursive" />
     <e p="C:\Users\kwolek\RiderProjects\EconomyEngine" t="IncludeFlat">
       <e p="EconomyEngine.sln" t="IncludeFlat" />
+      <e p="MarketEconomy" t="IncludeRecursive">
+        <e p="bin" t="ExcludeRecursive" />
+        <e p="Book.cs" t="Include" />
+        <e p="Customer.cs" t="Include" />
+        <e p="Good.cs" t="Include" />
+        <e p="Market.cs" t="Include" />
+        <e p="MarketEconomy.csproj" t="IncludeRecursive" />
+        <e p="MarketEngine.cs" t="Include" />
+        <e p="obj" t="ExcludeRecursive">
+          <e p="Debug" t="Include">
+            <e p="netcoreapp3.1" t="Include">
+              <e p="MarketEconomy.AssemblyInfo.cs" t="Include" />
+            </e>
+          </e>
+        </e>
+        <e p="Offer.cs" t="Include" />
+      </e>
       <e p="packages" t="ExcludeRecursive" />
-      <e p="StockMarket" t="IncludeRecursive">
+      <e p="StockMarketAPI" t="IncludeRecursive">
         <e p="appsettings.Development.json" t="Include" />
         <e p="appsettings.json" t="Include" />
         <e p="bin" t="ExcludeRecursive" />
         <e p="Controllers" t="Include">
-          <e p="WeatherForecastController.cs" t="Include" />
+          <e p="AsksController.cs" t="Include" />
+          <e p="BidsController.cs" t="Include" />
+          <e p="BooksController.cs" t="Include" />
+          <e p="CustomersController.cs" t="Include" />
+          <e p="MarketsController.cs" t="Include" />
         </e>
         <e p="obj" t="ExcludeRecursive">
           <e p="Debug" t="Include">
             <e p="netcoreapp3.1" t="Include">
-              <e p="StockMarket.AssemblyInfo.cs" t="Include" />
+              <e p="StockMarketAPI.AssemblyInfo.cs" t="Include" />
             </e>
           </e>
         </e>
@@ -25,7 +46,7 @@
           <e p="launchSettings.json" t="Include" />
         </e>
         <e p="Startup.cs" t="Include" />
-        <e p="StockMarket.csproj" t="IncludeRecursive" />
+        <e p="StockMarketAPI.csproj" t="IncludeRecursive" />
       </e>
     </e>
   </component>

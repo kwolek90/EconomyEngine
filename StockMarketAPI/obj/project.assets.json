@@ -1,11 +1,30 @@
 {
   "version": 3,
   "targets": {
-    ".NETCoreApp,Version=v3.1": {}
+    ".NETCoreApp,Version=v3.1": {
+      "MarketEconomy/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "compile": {
+          "bin/placeholder/MarketEconomy.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/MarketEconomy.dll": {}
+        }
+      }
+    }
   },
-  "libraries": {},
+  "libraries": {
+    "MarketEconomy/1.0.0": {
+      "type": "project",
+      "path": "../MarketEconomy/MarketEconomy.csproj",
+      "msbuildProject": "../MarketEconomy/MarketEconomy.csproj"
+    }
+  },
   "projectFileDependencyGroups": {
-    ".NETCoreApp,Version=v3.1": []
+    ".NETCoreApp,Version=v3.1": [
+      "MarketEconomy >= 1.0.0"
+    ]
   },
   "packageFolders": {
     "C:\\Users\\kwolek\\.nuget\\packages\\": {},
@@ -14,11 +33,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\kwolek\\RiderProjects\\EconomyEngine\\StockMarket\\StockMarket.csproj",
-      "projectName": "StockMarket",
-      "projectPath": "C:\\Users\\kwolek\\RiderProjects\\EconomyEngine\\StockMarket\\StockMarket.csproj",
+      "projectUniqueName": "C:\\Users\\kwolek\\RiderProjects\\EconomyEngine\\StockMarketAPI\\StockMarketAPI.csproj",
+      "projectName": "StockMarketAPI",
+      "projectPath": "C:\\Users\\kwolek\\RiderProjects\\EconomyEngine\\StockMarketAPI\\StockMarketAPI.csproj",
       "packagesPath": "C:\\Users\\kwolek\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\kwolek\\RiderProjects\\EconomyEngine\\StockMarket\\obj\\",
+      "outputPath": "C:\\Users\\kwolek\\RiderProjects\\EconomyEngine\\StockMarketAPI\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -36,7 +55,11 @@
       },
       "frameworks": {
         "netcoreapp3.1": {
-          "projectReferences": {}
+          "projectReferences": {
+            "C:\\Users\\kwolek\\RiderProjects\\EconomyEngine\\MarketEconomy\\MarketEconomy.csproj": {
+              "projectPath": "C:\\Users\\kwolek\\RiderProjects\\EconomyEngine\\MarketEconomy\\MarketEconomy.csproj"
+            }
+          }
         }
       },
       "warningProperties": {

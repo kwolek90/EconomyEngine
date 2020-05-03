@@ -6,12 +6,13 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Rewrite;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace StockMarket
+namespace StockMarketAPI
 {
     public class Startup
     {
@@ -35,6 +36,13 @@ namespace StockMarket
             {
                 app.UseDeveloperExceptionPage();
             }
+            
+            var pattern = @"^(((.*/)|(/?))[^/.]+(?!/$))$"; 
+
+            var options = new RewriteOptions()
+                .AddRedirect(pattern, "$1/",301);
+
+            app.UseRewriter(options);
 
             app.UseHttpsRedirection();
 
