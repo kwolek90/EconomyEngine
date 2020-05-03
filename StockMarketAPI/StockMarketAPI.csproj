@@ -5,6 +5,7 @@
     </PropertyGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\Common.MVC\Common.MVC.csproj" />
       <ProjectReference Include="..\MarketEconomy\MarketEconomy.csproj" />
     </ItemGroup>
 

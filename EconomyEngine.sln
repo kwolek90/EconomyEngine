@@ -4,6 +4,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StockMarketAPI", "StockMark
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MarketEconomy", "MarketEconomy\MarketEconomy.csproj", "{62F081E0-A7B0-4D21-8761-33899F97E99B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csproj", "{0D3EAD36-CF42-4F2C-8010-B8B727D9DA07}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common.MVC", "Common.MVC\Common.MVC.csproj", "{240BC911-B3DF-4A8F-9196-BD63F56C9E41}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +22,13 @@ Global
 		{62F081E0-A7B0-4D21-8761-33899F97E99B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{62F081E0-A7B0-4D21-8761-33899F97E99B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{62F081E0-A7B0-4D21-8761-33899F97E99B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D3EAD36-CF42-4F2C-8010-B8B727D9DA07}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D3EAD36-CF42-4F2C-8010-B8B727D9DA07}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D3EAD36-CF42-4F2C-8010-B8B727D9DA07}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D3EAD36-CF42-4F2C-8010-B8B727D9DA07}.Release|Any CPU.Build.0 = Release|Any CPU
+		{240BC911-B3DF-4A8F-9196-BD63F56C9E41}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{240BC911-B3DF-4A8F-9196-BD63F56C9E41}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{240BC911-B3DF-4A8F-9196-BD63F56C9E41}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{240BC911-B3DF-4A8F-9196-BD63F56C9E41}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

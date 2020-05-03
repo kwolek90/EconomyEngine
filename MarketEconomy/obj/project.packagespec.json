@@ -18,7 +18,11 @@
     },
     "frameworks": {
       "netcoreapp3.1": {
-        "projectReferences": {}
+        "projectReferences": {
+          "C:\\Users\\kwolek\\RiderProjects\\EconomyEngine\\Common\\Common.csproj": {
+            "projectPath": "C:\\Users\\kwolek\\RiderProjects\\EconomyEngine\\Common\\Common.csproj"
+          }
+        }
       }
     },
     "warningProperties": {

@@ -1,4 +1,5 @@
 ﻿using System.Linq.Expressions;
+using Common.MVC;
 using MarketEconomy;
 using Microsoft.AspNetCore.Mvc;
 
@@ -6,10 +7,10 @@ namespace StockMarketAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class BooksController : Controller
+    public class BooksController : BaseController
     {
         [HttpGet]
-        public JsonResult Get(string marketName, string name)
+        public ActionResult Get(string marketName, string name)
         {
             if (string.IsNullOrWhiteSpace(marketName) || string.IsNullOrWhiteSpace(name))
             {
@@ -20,16 +21,10 @@ namespace StockMarketAPI.Controllers
         }
 
         [HttpPost]
-        public JsonResult Post(string marketName, string name)
+        public ActionResult Post(string marketName, string name)
         {
-            if (string.IsNullOrWhiteSpace(marketName) || string.IsNullOrWhiteSpace(name))
-            {
-                return Json(new {result = "Error"});
-            }
-
-            MarketEngine.Instance.CreateMarketBook(marketName, name);
-            Response.StatusCode = 201;
-            return Json(new {result = "OK"});
+            var response = MarketEngine.Instance.CreateMarketBook(marketName, name);
+            return PrepareResponse(response);
 
         }
     }

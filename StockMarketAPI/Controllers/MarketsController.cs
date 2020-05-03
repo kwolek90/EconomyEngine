@@ -1,14 +1,15 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Common.MVC;
+using Microsoft.AspNetCore.Mvc;
 using MarketEconomy;
 
 namespace StockMarketAPI.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class MarketsController : Controller
+    public class MarketsController : BaseController
     {
         [HttpGet]
-        public JsonResult Get(string name)
+        public ActionResult Get(string name)
         {
             if (string.IsNullOrWhiteSpace(name))
             {
@@ -19,11 +20,10 @@ namespace StockMarketAPI.Controllers
         }
 
         [HttpPost]
-        public JsonResult Post(string name)
+        public ActionResult Post(string name)
         {
-            MarketEngine.Instance.CreateStockMarket(name);
-            Response.StatusCode = 201;
-            return Json(new {result = "OK"});
+            var resposne = MarketEngine.Instance.CreateStockMarket(name);
+            return PrepareResponse(resposne);
         }
     }
 }

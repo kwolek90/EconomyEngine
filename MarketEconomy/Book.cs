@@ -8,8 +8,9 @@ namespace MarketEconomy
 {
     public class Book
     {
-        public Book()
+        public Book(string name)
         {
+            Name = name;
             SortedAsks = new SortedList<double,Offer>(Comparer<double>.Create((x, y) => x == y ? 1 : x.CompareTo(y)));
             SortedBids = new SortedList<double,Offer>(Comparer<double>.Create((x, y) => y == x ? 1 : y.CompareTo(x)));
         }
@@ -32,18 +33,28 @@ namespace MarketEconomy
 
         public void AddAsk(Offer ask)
         {
+            //TO.DO do refactoru
+            if (!ask.Offerer.Goods.ContainsKey(Name))
+            {
+                ask.Offerer.Goods[Name] = new Good();
+            }
             SortedAsks.Add(ask.Price,ask);
+            
         }
 
         public void AddBid(Offer bid)
         {
+            //TO.DO do refactoru
+            if (!bid.Offerer.Goods.ContainsKey(Name))
+            {
+                bid.Offerer.Goods[Name] = new Good();
+            }
             SortedBids.Add(bid.Price,bid);
         }
 
 
         public void Resolve()
         {
-            
             var ask = SortedAsks.FirstOrDefault().Value;
             var bid = SortedBids.FirstOrDefault().Value;
             while (bid != null && ask != null && ask.Price <= bid.Price)
@@ -62,7 +73,7 @@ namespace MarketEconomy
                 ask.Offerer.Money -= value;
                 ask.Offerer.Goods[Name].Amount += amount;
                 bid.Offerer.Money += value;
-                ask.Offerer.Goods[Name].Amount -= amount;
+                bid.Offerer.Goods[Name].Amount -= amount;
                 
                 
 

@@ -2,9 +2,38 @@
   "version": 3,
   "targets": {
     ".NETCoreApp,Version=v3.1": {
+      "Common/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "compile": {
+          "bin/placeholder/Common.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Common.dll": {}
+        }
+      },
+      "Common.MVC/1.0.0": {
+        "type": "project",
+        "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "Common": "1.0.0"
+        },
+        "compile": {
+          "bin/placeholder/Common.MVC.dll": {}
+        },
+        "runtime": {
+          "bin/placeholder/Common.MVC.dll": {}
+        },
+        "frameworkReferences": [
+          "Microsoft.AspNetCore.App"
+        ]
+      },
       "MarketEconomy/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v3.1",
+        "dependencies": {
+          "Common": "1.0.0"
+        },
         "compile": {
           "bin/placeholder/MarketEconomy.dll": {}
         },
@@ -15,6 +44,16 @@
     }
   },
   "libraries": {
+    "Common/1.0.0": {
+      "type": "project",
+      "path": "../Common/Common.csproj",
+      "msbuildProject": "../Common/Common.csproj"
+    },
+    "Common.MVC/1.0.0": {
+      "type": "project",
+      "path": "../Common.MVC/Common.MVC.csproj",
+      "msbuildProject": "../Common.MVC/Common.MVC.csproj"
+    },
     "MarketEconomy/1.0.0": {
       "type": "project",
       "path": "../MarketEconomy/MarketEconomy.csproj",
@@ -23,6 +62,7 @@
   },
   "projectFileDependencyGroups": {
     ".NETCoreApp,Version=v3.1": [
+      "Common.MVC >= 1.0.0",
       "MarketEconomy >= 1.0.0"
     ]
   },
@@ -56,6 +96,9 @@
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
+            "C:\\Users\\kwolek\\RiderProjects\\EconomyEngine\\Common.MVC\\Common.MVC.csproj": {
+              "projectPath": "C:\\Users\\kwolek\\RiderProjects\\EconomyEngine\\Common.MVC\\Common.MVC.csproj"
+            },
             "C:\\Users\\kwolek\\RiderProjects\\EconomyEngine\\MarketEconomy\\MarketEconomy.csproj": {
               "projectPath": "C:\\Users\\kwolek\\RiderProjects\\EconomyEngine\\MarketEconomy\\MarketEconomy.csproj"
             }

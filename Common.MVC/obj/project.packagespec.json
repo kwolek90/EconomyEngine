@@ -1,10 +1,10 @@
 ﻿{
   "version": "1.0.0",
   "restore": {
-    "projectUniqueName": "C:\\Users\\kwolek\\RiderProjects\\EconomyEngine\\StockMarketAPI\\StockMarketAPI.csproj",
-    "projectName": "StockMarketAPI",
-    "projectPath": "C:\\Users\\kwolek\\RiderProjects\\EconomyEngine\\StockMarketAPI\\StockMarketAPI.csproj",
-    "outputPath": "C:\\Users\\kwolek\\RiderProjects\\EconomyEngine\\StockMarketAPI\\obj\\",
+    "projectUniqueName": "C:\\Users\\kwolek\\RiderProjects\\EconomyEngine\\Common.MVC\\Common.MVC.csproj",
+    "projectName": "Common.MVC",
+    "projectPath": "C:\\Users\\kwolek\\RiderProjects\\EconomyEngine\\Common.MVC\\Common.MVC.csproj",
+    "outputPath": "C:\\Users\\kwolek\\RiderProjects\\EconomyEngine\\Common.MVC\\obj\\",
     "projectStyle": "PackageReference",
     "fallbackFolders": [
       "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -19,11 +19,8 @@
     "frameworks": {
       "netcoreapp3.1": {
         "projectReferences": {
-          "C:\\Users\\kwolek\\RiderProjects\\EconomyEngine\\Common.MVC\\Common.MVC.csproj": {
-            "projectPath": "C:\\Users\\kwolek\\RiderProjects\\EconomyEngine\\Common.MVC\\Common.MVC.csproj"
-          },
-          "C:\\Users\\kwolek\\RiderProjects\\EconomyEngine\\MarketEconomy\\MarketEconomy.csproj": {
-            "projectPath": "C:\\Users\\kwolek\\RiderProjects\\EconomyEngine\\MarketEconomy\\MarketEconomy.csproj"
+          "C:\\Users\\kwolek\\RiderProjects\\EconomyEngine\\Common\\Common.csproj": {
+            "projectPath": "C:\\Users\\kwolek\\RiderProjects\\EconomyEngine\\Common\\Common.csproj"
           }
         }
       }

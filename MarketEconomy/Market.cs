@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
 using System.Text;
+using Common;
 
 namespace MarketEconomy
 {
@@ -11,6 +12,7 @@ namespace MarketEconomy
         public Market()
         {
             Books = new Dictionary<string,Book>();
+            Customers = new Dictionary<string, Customer>();
         }
         private Dictionary<string,Book> Books { get; set; }
         private Dictionary<string, Customer> Customers { get; set; }
@@ -18,18 +20,40 @@ namespace MarketEconomy
         public bool InstantResolve { get; set; }
 
 
-        public Book GetBookByName(string name)
+        public OperationResponse<Book> GetBookByName(string name)
         {
-            return Books.GetValueOrDefault(name);
+            var response = new OperationResponse<Book>();
+            Book book = null;
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                response.AddError("book",$"No book name provided.");
+            }
+            else
+            {
+                book = Books.GetValueOrDefault(name);
+            }
+
+            if (book == null)
+            {
+                response.AddError("book",$"Book {name} does not exists.");
+            }
+
+            response.Response = book;
+            return response;
         }
 
-        public void CreateBook(string name)
+        public OperationResponse CreateBook(string name)
         {
+            var response = new OperationResponse();
             if (Books.ContainsKey(name))
             {
-                throw new Exception("Book exists");
+                response.AddError("name","Book already exists");
             }
-            Books[name] = new Book();
+            else
+            {
+                Books[name] = new Book(name);   
+            }
+            return response;
         }
 
         public Customer GetCustomerById(string id)
