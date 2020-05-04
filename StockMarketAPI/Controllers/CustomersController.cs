@@ -12,8 +12,8 @@ namespace StockMarketAPI.Controllers
         [HttpGet]
         public ActionResult Get(string marketName, string id)
         {
-            var customer = MarketEngine.Instance.GetMarketCustomerById(marketName,id);
-            return Json(customer);
+            var response = MarketEngine.Instance.GetMarketCustomerById(marketName,id);
+            return PrepareResponse(response);
         }
 
         [HttpPost]

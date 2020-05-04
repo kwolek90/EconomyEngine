@@ -61,60 +61,70 @@ namespace MarketEconomy
         public OperationResponse<Book> GetMarketBookByName(string marketName, string bookName)
         {
             var response = new OperationResponse<Book>();
-            var marketResposne = GetMarketByName(marketName);
-            if (marketResposne.Success)
+            if (string.IsNullOrWhiteSpace(marketName) || string.IsNullOrWhiteSpace(bookName))
             {
-                response = marketResposne.Response.GetBookByName(bookName);   
+                response.AddError("","No names provided");
+                return response;
             }
-            else
-            {
-                response.Merge(marketResposne);
-            }
+
+            response = GetMarketByName(marketName).PerformAction(x => x.GetBookByName(bookName));
             return response;
         }
 
         public OperationResponse CreateMarketBook(string marketName, string bookName)
         {
-            var response = GetMarketByName(marketName);
-            if (response.Success)
+            OperationResponse response = null;
+            if (string.IsNullOrWhiteSpace(bookName))
             {
-                if (string.IsNullOrWhiteSpace(bookName))
-                {
-                    response.AddError("book",$"No book name provided.");
-                }
-                else
-                {
-                    response.Merge(response.Response.CreateBook(bookName));   
-                }
+                response = new OperationResponse();
+                response.AddError("book",$"No book name provided.");
+            }
+            else
+            {
+                response = GetMarketByName(marketName).PerformAction(x => x.CreateBook(bookName));
             }
 
             return response;
         }
 
-        public void AddAsk(string marketName, string bookName, string customerId, double price, double amount)
+        public OperationResponse AddAsk(string marketName, string bookName, string customerId, double price, double amount)
         {
-            var offerer = GetMarketCustomerById(marketName, customerId);
+            var marketResponse = GetMarketByName(marketName);
+            var offerer = marketResponse.PerformAction(x => x.GetCustomerById(customerId)).Response;
+            var book = marketResponse.PerformAction(x => x.GetBookByName(bookName)).Response; 
             var offer = new Offer(offerer, price, amount);
-            var market = GetMarketByName(marketName).Response;
-            var book = market.GetBookByName(bookName).Response; 
             book.AddAsk(offer);
-            if (market.InstantResolve)
+
+            var response = marketResponse.PerformAction(x =>
             {
-                book.Resolve();
-            }
+                if (x.InstantResolve)
+                {
+                    book.Resolve();
+                }
+                return new OperationResponse();
+            });
+
+            return response;
         }
         
-        public void AddBid(string marketName, string bookName, string customerId, double price, double amount)
+        public OperationResponse AddBid(string marketName, string bookName, string customerId, double price, double amount)
         {
-            var offerer = GetMarketCustomerById(marketName, customerId);
+            var marketResponse = GetMarketByName(marketName);
+            var offerer = marketResponse.PerformAction(x => x.GetCustomerById(customerId)).Response;
+            var book = marketResponse.PerformAction(x => x.GetBookByName(bookName)).Response; 
             var offer = new Offer(offerer, price, amount);
-            var market = GetMarketByName(marketName).Response;
-            var book = market.GetBookByName(bookName).Response;
             book.AddBid(offer);
-            if (market.InstantResolve)
+            
+            var response = marketResponse.PerformAction(x =>
             {
-                book.Resolve();
-            }
+                if (x.InstantResolve)
+                {
+                    book.Resolve();
+                }
+                return new OperationResponse();
+            });
+
+            return response;
         }
 
         public OperationResponse<Customer> AddMarketCustomer(string marketName, string name, double money)
@@ -130,9 +140,9 @@ namespace MarketEconomy
         }
         
         
-        public Customer GetMarketCustomerById(string marketName, string id)
+        public OperationResponse<Customer> GetMarketCustomerById(string marketName, string id)
         {
-            return GetMarketByName(marketName).Response?.GetCustomerById(id);
+            return GetMarketByName(marketName).PerformAction(x => x.GetCustomerById(id));
         }
 
         public List<string> GetAllMarketsNames()

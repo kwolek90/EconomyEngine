@@ -11,9 +11,8 @@ namespace StockMarketAPI.Controllers
         [HttpPost]
         public ActionResult Post(string marketName, string bookName, string customerId, double price, double amount)
         {
-            MarketEngine.Instance.AddBid(marketName, bookName, customerId, price, amount);
-            Response.StatusCode = 201;
-            return Json(new {result = "OK"});
+            var response = MarketEngine.Instance.AddBid(marketName, bookName, customerId, price, amount);
+            return PrepareResponse(response);
         }
     }
 }

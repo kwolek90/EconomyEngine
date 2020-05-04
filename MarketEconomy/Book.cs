@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace MarketEconomy
 {
-    public class Book
+    public class Book: object
     {
         public Book(string name)
         {

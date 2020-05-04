@@ -56,9 +56,9 @@ namespace MarketEconomy
             return response;
         }
 
-        public Customer GetCustomerById(string id)
+        public OperationResponse<Customer> GetCustomerById(string id)
         {
-            return Customers.GetValueOrDefault(id);
+            return new OperationResponse<Customer>(){Response = Customers.GetValueOrDefault(id)};
         }
         
         //TO.DO przenieść do jakiś utils czy helperów

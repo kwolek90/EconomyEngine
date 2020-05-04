@@ -11,6 +11,11 @@ namespace Common
         {
             Errors = new Dictionary<string, List<string>>();
         }
+
+        public OperationResponse(OperationResponse response)
+        {
+            Errors = new Dictionary<string, List<string>>(response.Errors);
+        }
         public Dictionary<string,List<string>> Errors { get; set; }
         
         public bool Success
@@ -40,16 +45,41 @@ namespace Common
 
             }
         }
+
     }
     
     public class OperationResponse<T> : OperationResponse where T:class 
     {
         public T Response { get; set; }
 
+        public OperationResponse(): base()
+        {
+            
+        }
+        public OperationResponse(OperationResponse response): base(response)
+        {
+            
+        }
+        
+
         public void Merge(OperationResponse<T> response)
         {
             base.Merge(response);
             Response = response.Response;
         }
+         public OperationResponse PerformAction(Func<T,OperationResponse> func)
+         {
+             OperationResponse newResponse = Success ? func.Invoke(Response) : new OperationResponse(this);
+        
+             return newResponse;
+         }
+         
+         public OperationResponse<TResult> PerformAction<TResult>(Func<T,OperationResponse<TResult>> func) where TResult: class
+         {
+             OperationResponse<TResult> newResponse = Success ? func.Invoke(Response) : new OperationResponse<TResult>(this);
+        
+             return newResponse;
+         }
+        
     }
 }

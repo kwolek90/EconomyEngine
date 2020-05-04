@@ -12,12 +12,8 @@ namespace StockMarketAPI.Controllers
         [HttpGet]
         public ActionResult Get(string marketName, string name)
         {
-            if (string.IsNullOrWhiteSpace(marketName) || string.IsNullOrWhiteSpace(name))
-            {
-                return Json(new {result = "Error"});
-            }
-
-            return Json(MarketEngine.Instance.GetMarketBookByName(marketName, name));
+            var response = MarketEngine.Instance.GetMarketBookByName(marketName, name);
+            return PrepareResponse(response);
         }
 
         [HttpPost]
