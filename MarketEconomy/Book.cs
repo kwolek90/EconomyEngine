@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using Common;
 
 namespace MarketEconomy
 {
@@ -31,7 +32,7 @@ namespace MarketEconomy
             get { return SortedBids.Select(x => x.Value).ToList(); }
         }
 
-        public void AddAsk(Offer ask)
+        public OperationResponse AddAsk(Offer ask)
         {
             //TO.DO do refactoru
             if (!ask.Offerer.Goods.ContainsKey(Name))
@@ -40,9 +41,10 @@ namespace MarketEconomy
             }
             SortedAsks.Add(ask.Price,ask);
             
+            return new OperationResponse();
         }
 
-        public void AddBid(Offer bid)
+        public OperationResponse AddBid(Offer bid)
         {
             //TO.DO do refactoru
             if (!bid.Offerer.Goods.ContainsKey(Name))
@@ -50,10 +52,12 @@ namespace MarketEconomy
                 bid.Offerer.Goods[Name] = new Good();
             }
             SortedBids.Add(bid.Price,bid);
+
+            return new OperationResponse();
         }
 
 
-        public void Resolve()
+        public OperationResponse Resolve()
         {
             var ask = SortedAsks.FirstOrDefault().Value;
             var bid = SortedBids.FirstOrDefault().Value;
@@ -91,6 +95,8 @@ namespace MarketEconomy
                 bid = SortedBids.FirstOrDefault().Value;
                 
             }
+            
+            return new OperationResponse();
         }
     }
     

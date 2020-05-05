@@ -45,6 +45,18 @@ namespace Common
 
             }
         }
+        
+        
+        public OperationResponse NextStep(Func<OperationResponse> func)
+        {
+            OperationResponse newResponse = Success ? func.Invoke() : new OperationResponse(this);
+            return newResponse;
+        }
+        public OperationResponse NextStep<TRes>(Func<OperationResponse<TRes>> func) where TRes: class
+        {
+            OperationResponse newResponse = Success ? func.Invoke() : new OperationResponse(this);
+            return newResponse;
+        }
 
     }
     
@@ -67,14 +79,14 @@ namespace Common
             base.Merge(response);
             Response = response.Response;
         }
-         public OperationResponse PerformAction(Func<T,OperationResponse> func)
+         public OperationResponse NextStep(Func<T,OperationResponse> func)
          {
              OperationResponse newResponse = Success ? func.Invoke(Response) : new OperationResponse(this);
         
              return newResponse;
          }
          
-         public OperationResponse<TResult> PerformAction<TResult>(Func<T,OperationResponse<TResult>> func) where TResult: class
+         public OperationResponse<TResult> NextStep<TResult>(Func<T,OperationResponse<TResult>> func) where TResult: class
          {
              OperationResponse<TResult> newResponse = Success ? func.Invoke(Response) : new OperationResponse<TResult>(this);
         
