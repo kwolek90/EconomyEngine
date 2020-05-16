@@ -45,7 +45,11 @@ namespace MarketEconomy
         public OperationResponse CreateBook(string name)
         {
             var response = new OperationResponse();
-            if (Books.ContainsKey(name))
+            if (string.IsNullOrWhiteSpace(name))
+            {
+                response.AddError("book",$"No book name provided.");
+            }
+            else if (Books.ContainsKey(name))
             {
                 response.AddError("name","Book already exists");
             }
@@ -72,7 +76,7 @@ namespace MarketEconomy
             return new string(chars).Normalize(NormalizationForm.FormC);
         }
 
-        public Customer AddCustomer(string name, double money)
+        public OperationResponse<Customer> AddCustomer(string name, double money)
         {
             var customer = new Customer()
             {
@@ -82,7 +86,24 @@ namespace MarketEconomy
             };
             Customers[customer.Id] = customer;
 
-            return customer;
+            return new OperationResponse<Customer>() {Response = customer};
+        }
+        
+        public OperationResponse AddAsk(string bookName, string customerId, double price, double amount)
+        {
+            var response = GetCustomerById(customerId)
+                .NextStep(x => x.PrepareAsk(bookName, price, amount))
+                .NextStep(x => GetBookByName(bookName).NextStep(y => y.AddAsk(x)))
+                .ConditionalStep(x => InstantResolve, x => x.Resolve());
+            return response;
+        }
+        public OperationResponse AddBid(string bookName, string customerId, double price, double amount)
+        {
+            var response = GetCustomerById(customerId)
+                .NextStep(x => x.PrepareBid(bookName, price, amount))
+                .NextStep(x => GetBookByName(bookName).NextStep(y => y.AddBid(x)))
+                .ConditionalStep(x => InstantResolve, x => x.Resolve());
+            return response;
         }
 
     }

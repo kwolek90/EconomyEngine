@@ -22,8 +22,8 @@ namespace StockMarketAPI.Controllers
         [HttpPost]
         public ActionResult Post(string name)
         {
-            var resposne = MarketEngine.Instance.CreateStockMarket(name);
-            return PrepareResponse(resposne);
+            var response = MarketEngine.Instance.CreateMarket(name);
+            return PrepareResponse(response);
         }
     }
 }

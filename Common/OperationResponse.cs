@@ -89,7 +89,16 @@ namespace Common
          public OperationResponse<TResult> NextStep<TResult>(Func<T,OperationResponse<TResult>> func) where TResult: class
          {
              OperationResponse<TResult> newResponse = Success ? func.Invoke(Response) : new OperationResponse<TResult>(this);
-        
+             return newResponse;
+         }
+         public  OperationResponse ConditionalStep(Func<T,bool> condition, Func<T,OperationResponse> func)
+         {
+             OperationResponse newResponse = Success && condition.Invoke(Response) ? func.Invoke(Response) : new OperationResponse(this);
+             return newResponse;
+         }
+         public  OperationResponse<TResult> ConditionalStep<TResult>(Func<T,bool> condition, Func<T,OperationResponse<TResult>> func) where TResult: class
+         {
+             OperationResponse<TResult> newResponse = Success && condition.Invoke(Response) ? func.Invoke(Response) : new OperationResponse<TResult>(this);
              return newResponse;
          }
         

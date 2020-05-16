@@ -32,32 +32,20 @@ namespace MarketEconomy
             get { return SortedBids.Select(x => x.Value).ToList(); }
         }
 
-        public OperationResponse AddAsk(Offer ask)
+        public OperationResponse<Book> AddAsk(Offer ask)
         {
-            //TO.DO do refactoru
-            if (!ask.Offerer.Goods.ContainsKey(Name))
-            {
-                ask.Offerer.Goods[Name] = new Good();
-            }
             SortedAsks.Add(ask.Price,ask);
-            
-            return new OperationResponse();
+            return new OperationResponse<Book>(){Response = this};
         }
 
-        public OperationResponse AddBid(Offer bid)
+        public OperationResponse<Book>  AddBid(Offer bid)
         {
-            //TO.DO do refactoru
-            if (!bid.Offerer.Goods.ContainsKey(Name))
-            {
-                bid.Offerer.Goods[Name] = new Good();
-            }
             SortedBids.Add(bid.Price,bid);
-
-            return new OperationResponse();
+            return new OperationResponse<Book>(){Response = this};
         }
 
 
-        public OperationResponse Resolve()
+        public OperationResponse<Book> Resolve()
         {
             var ask = SortedAsks.FirstOrDefault().Value;
             var bid = SortedBids.FirstOrDefault().Value;
@@ -96,7 +84,7 @@ namespace MarketEconomy
                 
             }
             
-            return new OperationResponse();
+            return new OperationResponse<Book>(){Response = this};
         }
     }
     
