@@ -9,6 +9,7 @@ namespace Common.MVC
         {
             if (response.Success)
             {
+                if (Request.Method == "DELETE") Response.StatusCode = 201;
                 if (Request.Method == "POST") Response.StatusCode = 201;
                 if (Request.Method == "GET") Response.StatusCode = 200;
                 return Json(response.Response);

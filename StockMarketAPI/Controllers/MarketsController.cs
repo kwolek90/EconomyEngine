@@ -25,5 +25,13 @@ namespace StockMarketAPI.Controllers
             var response = MarketEngine.Instance.CreateMarket(name);
             return PrepareResponse(response);
         }
+        
+        
+        [HttpDelete]
+        public ActionResult Delete(string name)
+        {
+            var response = MarketEngine.Instance.DeleteMarket(name);
+            return PrepareResponse(response);
+        }
     }
 }

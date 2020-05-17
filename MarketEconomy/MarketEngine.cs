@@ -33,7 +33,21 @@ namespace MarketEconomy
             {
                 Markets[name] = new Market(){InstantResolve = true};   
             }
-
+            return response;
+        }
+        
+        
+        public OperationResponse DeleteMarket(string name)
+        {
+            var response = new OperationResponse();
+            if (!Markets.ContainsKey(name))
+            {
+                response.AddError("name","No such market");
+            }
+            else
+            {
+                Markets.Remove(name);
+            }
             return response;
         }
 
