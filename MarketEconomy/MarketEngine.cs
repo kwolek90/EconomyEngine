@@ -58,11 +58,10 @@ namespace MarketEconomy
             if (string.IsNullOrWhiteSpace(name))
             {
                 response.AddError("market",$"No market name provided.");
+                return response;
             }
-            else
-            {
-                market = Markets.GetValueOrDefault(name);   
-            }
+            
+            market = Markets.GetValueOrDefault(name);
             if (market == null)
             {
                 response.AddError("market",$"Market {name} does not exists.");
@@ -101,6 +100,13 @@ namespace MarketEconomy
         public OperationResponse<Customer> GetMarketCustomerById(string marketName, string id)
         {
             return GetMarketByName(marketName).NextStep(x => x.GetCustomerById(id));
+        }
+        
+        
+        public OperationResponse<Customer> UpdateMarketCustomer(string marketName, string id, string operation, double? money, List<Good> goods)
+        {
+            return GetMarketByName(marketName).NextStep(m => m.GetCustomerById(id))
+                .NextStep(c => c.ModifyBelongings(operation, money, goods));
         }
 
         public List<string> GetAllMarketsNames()

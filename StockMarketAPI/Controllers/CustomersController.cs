@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Common.MVC;
 using MarketEconomy;
 using Microsoft.AspNetCore.Mvc;
@@ -20,6 +21,13 @@ namespace StockMarketAPI.Controllers
         public ActionResult Post(string marketName, string name, double money)
         {
             var response = MarketEngine.Instance.AddMarketCustomer(marketName, name, money);
+            return PrepareResponse(response);
+        }
+
+        [HttpPatch]
+        public ActionResult Patch(string marketName, string id, string operation, double? money, List<Good> goods)
+        {
+            var response = MarketEngine.Instance.UpdateMarketCustomer(marketName, id,operation, money,goods);
             return PrepareResponse(response);
         }
     }

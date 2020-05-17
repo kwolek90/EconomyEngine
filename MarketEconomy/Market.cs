@@ -78,15 +78,33 @@ namespace MarketEconomy
 
         public OperationResponse<Customer> AddCustomer(string name, double money)
         {
-            var customer = new Customer()
+            var response = new OperationResponse<Customer>();
+            Customer customer = null;
+            string id = RemoveDiacritics(name).Replace(' ', '_');
+            if (string.IsNullOrWhiteSpace(name))
             {
-                Name = name,
-                Money = money,
-                Id = RemoveDiacritics(name).Replace(' ', '_')
-            };
-            Customers[customer.Id] = customer;
+                response.AddError("name","No customer name");
+            }
+            else if(Customers.ContainsKey(id))
+            {
+                response.AddError("name","Customer arleady exists");
+            }
+            else if (money < 0)
+            {
+                response.AddError("money", "Negative amount of money");
+            }
+            else {
+                customer = new Customer()
+                {
+                    Name = name,
+                    Money = money,
+                    Id = RemoveDiacritics(name).Replace(' ', '_')
+                };
+                Customers[id] = customer;
+                response.Response = customer;
+            }
 
-            return new OperationResponse<Customer>() {Response = customer};
+            return response;
         }
         
         public OperationResponse AddAsk(string bookName, string customerId, double price, double amount)

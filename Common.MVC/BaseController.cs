@@ -9,25 +9,24 @@ namespace Common.MVC
         {
             if (response.Success)
             {
-                if (Request.Method == "DELETE") Response.StatusCode = 201;
-                if (Request.Method == "POST") Response.StatusCode = 201;
+                if (Request.Method == "PUT") Response.StatusCode = 200;
+                if (Request.Method == "DELETE") Response.StatusCode = 200;
                 if (Request.Method == "GET") Response.StatusCode = 200;
+                if (Request.Method == "POST") Response.StatusCode = 201;
                 return Json(response.Response);
             }
-            else
+            
+            var modelState = new ModelStateDictionary();
+            foreach (var keyValuePair in response.Errors)
             {
-                var modelState = new ModelStateDictionary();
-                foreach (var keyValuePair in response.Errors)
+                var key = keyValuePair.Key;
+                var messages = keyValuePair.Value;
+                foreach (var message in messages)
                 {
-                    var key = keyValuePair.Key;
-                    var messages = keyValuePair.Value;
-                    foreach (var message in messages)
-                    {
-                        modelState.AddModelError(key, message);
-                    }
+                    modelState.AddModelError(key, message);
                 }
-                return BadRequest(modelState);
             }
+            return BadRequest(modelState);
         }
         
         protected ActionResult PrepareResponse(OperationResponse response)
