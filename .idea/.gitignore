@@ -1,2 +1,4 @@
 ﻿# Default ignored files
 /.idea.EconomyEngine/.idea/workspace.xml
+*.dll
+*.pdb
