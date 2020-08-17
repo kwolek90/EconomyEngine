@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using Common.MVC;
 using MarketEconomy;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace StockMarketAPI.Controllers
 {
@@ -25,10 +28,21 @@ namespace StockMarketAPI.Controllers
         }
 
         [HttpPatch]
-        public ActionResult Patch(string marketName, string id, string operation, double? money, List<Good> goods)
+        public ActionResult Patch(string marketName, string id, string operation, double? money, JsonElement goods)
         {
-            var response = MarketEngine.Instance.UpdateMarketCustomer(marketName, id,operation, money,goods);
-            return PrepareResponse(response);
+
+            return Json(goods);
+            var deserializedGoods = new List<Good>();
+            foreach (var jsonGood in goods.EnumerateArray())
+            {
+                var good =new Good();
+                good.Name = jsonGood.GetProperty("name").GetString();
+                good.Amount = jsonGood.GetProperty("amount").GetDouble();
+            }
+
+            return Json(deserializedGoods);
+            // var response = MarketEngine.Instance.UpdateMarketCustomer(marketName, id,operation, money,deserializedGoods);
+            // return PrepareResponse(response);
         }
     }
 }

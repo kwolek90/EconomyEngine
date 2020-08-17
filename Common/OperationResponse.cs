@@ -45,7 +45,22 @@ namespace Common
 
             }
         }
-        
+
+        public string GetErrormessage()
+        {
+            string errorsMessage = "";
+            foreach (var keyValue in Errors)
+            {
+                var key = keyValue.Key;
+                var messages = keyValue.Value;
+                foreach (var message in messages)
+                {
+                    errorsMessage += $"{key} - {message} \n";
+                }
+
+            }
+            return errorsMessage;
+        }
         
         public OperationResponse NextStep(Func<OperationResponse> func)
         {

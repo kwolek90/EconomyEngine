@@ -16,7 +16,7 @@ namespace StockMarketAPI.Controllers
                 return Json(MarketEngine.Instance.GetAllMarketsNames());   
             }
 
-            return Json(MarketEngine.Instance.GetMarketByName(name));
+            return PrepareResponse(MarketEngine.Instance.GetMarketByName(name));
         }
 
         [HttpPost]

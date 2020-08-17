@@ -49,6 +49,9 @@ namespace MarketEconomy
         {
             var ask = SortedAsks.FirstOrDefault().Value;
             var bid = SortedBids.FirstOrDefault().Value;
+            
+
+            
             while (bid != null && ask != null && ask.Price <= bid.Price)
             {
                 //TO.DO wydzielić jako oddzielny mechanizm

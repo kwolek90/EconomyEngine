@@ -25,7 +25,7 @@ namespace MarketEconomy
             
             if (!Goods.ContainsKey(goodName))
             {
-                Goods[goodName] = new Good();
+                Goods[goodName] = new Good() {Name = goodName};
             }
 
             if (Money < price * amount)
@@ -46,21 +46,26 @@ namespace MarketEconomy
         public OperationResponse<Offer> PrepareBid(string goodName, double price, double amount)
         {
             var response = new OperationResponse<Offer>();
-            if (!Goods.ContainsKey(goodName) && Goods.GetValueOrDefault(goodName).Amount < amount)
+            if (!Goods.ContainsKey(goodName))
+            {
+                response.AddError("amount", $"Customer has not good {goodName}.");
+            }
+            else if (Goods.GetValueOrDefault(goodName).Amount < amount)
             {
                 response.AddError("amount", "Not enough goods.");
-                return response;
+            }
+            else
+            {
+                if (!BlockedGoods.ContainsKey(goodName))
+                {
+                    BlockedGoods[goodName] = new Good();
+                }
+                Goods.GetValueOrDefault(goodName).Amount -= amount;
+                BlockedGoods.GetValueOrDefault(goodName).Amount += amount;
+                var offer = new Offer(this, price, amount);
+                response.Response = offer;
             }
             
-            if (!BlockedGoods.ContainsKey(goodName))
-            {
-                BlockedGoods[goodName] = new Good();
-            }
-
-            Goods.GetValueOrDefault(goodName).Amount -= amount;
-            BlockedGoods.GetValueOrDefault(goodName).Amount += amount;
-            var offer = new Offer(this, price, amount);
-            response.Response = offer;
             
             return response;
         }
